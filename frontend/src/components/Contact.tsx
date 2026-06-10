@@ -2,7 +2,12 @@ import { useState, useRef, type CSSProperties } from "react";
 import { motion, AnimatePresence, useInView } from "framer-motion";
 import FractalBackdrop from "./FractalBackdrop";
 
-type FormState = { name: string; email: string; message: string; consent: boolean };
+type FormState = {
+  name: string;
+  email: string;
+  message: string;
+  consent: boolean;
+};
 type Status = "idle" | "loading" | "success" | "error";
 
 const baseInput: CSSProperties = {
@@ -287,7 +292,11 @@ const Contact = () => {
                   onChange={(e) =>
                     setForm((prev) => ({ ...prev, consent: e.target.checked }))
                   }
-                  style={{ marginTop: 2, accentColor: "#00FF88", cursor: "pointer" }}
+                  style={{
+                    marginTop: 2,
+                    accentColor: "#00FF88",
+                    cursor: "pointer",
+                  }}
                 />
                 <label
                   htmlFor="consent"
@@ -299,8 +308,8 @@ const Contact = () => {
                     cursor: "pointer",
                   }}
                 >
-                  I consent to Mandelbrot Studios storing my contact information to
-                  respond to this inquiry.
+                  I consent to Mandelbrot Studios storing my contact information
+                  to respond to this inquiry.
                 </label>
               </motion.div>
 
@@ -341,7 +350,12 @@ const Contact = () => {
                   color: "#000D0A",
                   padding: "16px",
                   border: "none",
-                  cursor: status === "loading" ? "wait" : !form.consent ? "not-allowed" : "pointer",
+                  cursor:
+                    status === "loading"
+                      ? "wait"
+                      : !form.consent
+                        ? "not-allowed"
+                        : "pointer",
                   marginTop: 8,
                   opacity: status === "loading" || !form.consent ? 0.5 : 1,
                   transition: "opacity 0.2s",

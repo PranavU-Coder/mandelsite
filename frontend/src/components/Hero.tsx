@@ -21,8 +21,7 @@ const Hero = () => {
         minHeight: "100vh",
         display: "flex",
         alignItems: "center",
-        paddingTop: 64,
-        padding: "64px 40px 0",
+        padding: "64px max(16px, 3.5vw) 0",
         position: "relative",
         overflow: "hidden",
         background: "#000D0A",
@@ -106,7 +105,7 @@ const Hero = () => {
           style={{
             fontFamily: "'Unbounded', sans-serif",
             fontWeight: 900,
-            fontSize: "clamp(52px, 8vw, 108px)",
+            fontSize: "clamp(36px, 9.5vw, 108px)",
             lineHeight: 0.92,
             textTransform: "uppercase",
             margin: "0 0 36px 0",

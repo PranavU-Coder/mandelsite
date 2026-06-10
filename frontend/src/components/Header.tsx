@@ -9,6 +9,12 @@ const NAV_LINKS = [
 ];
 
 const MOBILE_BP = 768;
+const BAR_STYLE = {
+  display: "block",
+  width: 22,
+  height: 2,
+  background: "#00FF88",
+} as const;
 
 const Header = () => {
   const [open, setOpen] = useState(false);
@@ -23,13 +29,17 @@ const Header = () => {
   }, []);
 
   useEffect(() => {
-    if (!open) return;
+    if (open && !isMobile) {
+      setOpen(false);
+      return;
+    }
+    if (!open || !isMobile) return;
     const handler = (e: KeyboardEvent) => {
       if (e.key === "Escape") setOpen(false);
     };
     window.addEventListener("keydown", handler);
     return () => window.removeEventListener("keydown", handler);
-  }, [open]);
+  }, [open, isMobile]);
 
   return (
     <header
@@ -91,7 +101,6 @@ const Header = () => {
                 key={label}
                 href={href}
                 style={{
-                  fontFamily: "'Outfit', sans-serif",
                   fontSize: 11,
                   color: "rgba(255,255,255,0.45)",
                   letterSpacing: "0.25em",
@@ -109,7 +118,6 @@ const Header = () => {
           <a
             href="#contact"
             style={{
-              fontFamily: "'Outfit', sans-serif",
               fontWeight: 700,
               fontSize: 11,
               letterSpacing: "0.2em",
@@ -142,39 +150,24 @@ const Header = () => {
             <motion.span
               animate={{ rotate: open ? 45 : 0, y: open ? 7 : 0 }}
               transition={{ duration: 0.2 }}
-              style={{
-                display: "block",
-                width: 22,
-                height: 2,
-                background: "#00FF88",
-              }}
+              style={BAR_STYLE}
             />
             <motion.span
               animate={{ opacity: open ? 0 : 1, scaleX: open ? 0 : 1 }}
               transition={{ duration: 0.15 }}
-              style={{
-                display: "block",
-                width: 22,
-                height: 2,
-                background: "#00FF88",
-              }}
+              style={BAR_STYLE}
             />
             <motion.span
               animate={{ rotate: open ? -45 : 0, y: open ? -7 : 0 }}
               transition={{ duration: 0.2 }}
-              style={{
-                display: "block",
-                width: 22,
-                height: 2,
-                background: "#00FF88",
-              }}
+              style={BAR_STYLE}
             />
           </button>
         )}
       </div>
 
       <AnimatePresence>
-        {open && (
+        {open && isMobile && (
           <motion.nav
             key="mobile-nav"
             initial={{ opacity: 0, height: 0 }}
@@ -200,7 +193,6 @@ const Header = () => {
                   href={href}
                   onClick={() => setOpen(false)}
                   style={{
-                    fontFamily: "'Outfit', sans-serif",
                     fontSize: 13,
                     color: "rgba(255,255,255,0.7)",
                     letterSpacing: "0.25em",
@@ -219,7 +211,6 @@ const Header = () => {
                 style={{
                   display: "inline-block",
                   marginTop: 20,
-                  fontFamily: "'Outfit', sans-serif",
                   fontWeight: 700,
                   fontSize: 10,
                   letterSpacing: "0.2em",

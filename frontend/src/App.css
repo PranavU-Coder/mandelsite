@@ -1,41 +1,65 @@
-*, *::before, *::after {
+*,
+*::before,
+*::after {
   box-sizing: border-box;
   margin: 0;
   padding: 0;
 }
 
 html {
-  scroll-behavior: auto; 
+  scroll-behavior: auto;
 }
 
 body {
-  background: #000D0A;
+  background: #000d0a;
   color: #fff;
-  font-family: 'Outfit', sans-serif;
+  font-family: "Outfit", sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   overflow-x: hidden;
 }
 
 ::selection {
-  background: #00FF88;
+  background: #00ff88;
   color: #000;
 }
 
 * {
   scrollbar-width: thin;
-  scrollbar-color: #00FF88 #000D0A;
+  scrollbar-color: #00ff88 #000d0a;
 }
 
-*::-webkit-scrollbar { width: 6px; }
-*::-webkit-scrollbar-track { background: #000D0A; }
-*::-webkit-scrollbar-thumb { background: #00FF88; border-radius: 3px; }
+*::-webkit-scrollbar {
+  width: 6px;
+}
+*::-webkit-scrollbar-track {
+  background: #000d0a;
+}
+*::-webkit-scrollbar-thumb {
+  background: #00ff88;
+  border-radius: 3px;
+}
 
-a { color: inherit; }
-h1, h2, h3, h4 { margin: 0; }
-p { margin: 0; }
-button { font-family: inherit; }
-input, textarea, select { font-family: 'Outfit', sans-serif; }
+a {
+  color: inherit;
+}
+h1,
+h2,
+h3,
+h4 {
+  margin: 0;
+}
+p {
+  margin: 0;
+}
+button {
+  font-family: inherit;
+}
+input,
+textarea,
+select {
+  font-family: "Outfit", sans-serif;
+}
 
 input::placeholder,
 textarea::placeholder {
