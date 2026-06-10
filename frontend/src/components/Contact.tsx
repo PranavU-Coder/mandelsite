@@ -2,7 +2,7 @@ import { useState, useRef, type CSSProperties } from "react";
 import { motion, AnimatePresence, useInView } from "framer-motion";
 import FractalBackdrop from "./FractalBackdrop";
 
-type FormState = { name: string; email: string; message: string };
+type FormState = { name: string; email: string; message: string; consent: boolean };
 type Status = "idle" | "loading" | "success" | "error";
 
 const baseInput: CSSProperties = {
@@ -49,6 +49,7 @@ const Contact = () => {
     name: "",
     email: "",
     message: "",
+    consent: false,
   });
   const [status, setStatus] = useState<Status>("idle");
   const [focused, setFocused] = useState("");
@@ -71,11 +72,13 @@ const Contact = () => {
           name: form.name,
           email: form.email,
           message: form.message,
+          consent: form.consent,
         }),
       });
       if (!res.ok) throw new Error("Server error");
       setStatus("success");
-    } catch {
+    } catch (e) {
+      console.error("Contact form submission failed:", e);
       setStatus("error");
     }
   };
@@ -269,6 +272,38 @@ const Contact = () => {
                 />
               </motion.div>
 
+              <motion.div
+                custom={3}
+                initial="hidden"
+                animate={formInView ? "visible" : "hidden"}
+                variants={fieldVariants}
+                style={{ display: "flex", alignItems: "flex-start", gap: 10 }}
+              >
+                <input
+                  required
+                  type="checkbox"
+                  id="consent"
+                  checked={form.consent}
+                  onChange={(e) =>
+                    setForm((prev) => ({ ...prev, consent: e.target.checked }))
+                  }
+                  style={{ marginTop: 2, accentColor: "#00FF88", cursor: "pointer" }}
+                />
+                <label
+                  htmlFor="consent"
+                  style={{
+                    fontFamily: "'Outfit', sans-serif",
+                    fontSize: 11,
+                    color: "rgba(255,255,255,0.4)",
+                    lineHeight: 1.6,
+                    cursor: "pointer",
+                  }}
+                >
+                  I consent to Mandelbrot Studios storing my contact information to
+                  respond to this inquiry.
+                </label>
+              </motion.div>
+
               <AnimatePresence>
                 {status === "error" && (
                   <motion.p
@@ -290,12 +325,12 @@ const Contact = () => {
               </AnimatePresence>
 
               <motion.button
-                custom={3}
+                custom={4}
                 initial="hidden"
                 animate={formInView ? "visible" : "hidden"}
                 variants={fieldVariants}
                 type="submit"
-                disabled={status === "loading"}
+                disabled={status === "loading" || !form.consent}
                 style={{
                   fontFamily: "'Outfit', sans-serif",
                   fontWeight: 700,
@@ -306,9 +341,9 @@ const Contact = () => {
                   color: "#000D0A",
                   padding: "16px",
                   border: "none",
-                  cursor: status === "loading" ? "wait" : "pointer",
+                  cursor: status === "loading" ? "wait" : !form.consent ? "not-allowed" : "pointer",
                   marginTop: 8,
-                  opacity: status === "loading" ? 0.7 : 1,
+                  opacity: status === "loading" || !form.consent ? 0.5 : 1,
                   transition: "opacity 0.2s",
                 }}
               >

@@ -181,7 +181,7 @@ function GamesTeaser() {
 
           <img
             src={gamePng}
-            alt="Project Sigma"
+            alt={CODENAME}
             style={{
               width: "100%",
               height: "auto",
