@@ -2,6 +2,8 @@ import { useState, useRef, type CSSProperties } from "react";
 import { motion, AnimatePresence, useInView } from "framer-motion";
 import FractalBackdrop from "./FractalBackdrop";
 
+const API_URL = import.meta.env.VITE_API_URL || "";
+
 type FormState = {
   name: string;
   email: string;
@@ -70,7 +72,7 @@ const Contact = () => {
     e.preventDefault();
     setStatus("loading");
     try {
-      const res = await fetch("/api/contact", {
+      const res = await fetch(`${API_URL}/api/contact`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
